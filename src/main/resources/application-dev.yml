@@ -1,0 +1,14 @@
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://172.21.213.33/MapArchiveDB
+
+
+resourcePath: Z:/resources
+
+mbtilesPath: Z:/mbtiles
+
+terrariumPath: Y:/mbtiles
+
+deployIpAndPort: localhost:9000
+

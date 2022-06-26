@@ -1,0 +1,8 @@
+
+#resourcePath: D:/mapArchiveFiles
+resourcePath: D:/MapServer/resources/
+
+mbtilesPath: D:/MapServer/mbtiles/
+
+deployIpAndPort: 172.21.212.168:9000
+

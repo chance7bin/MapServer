@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    static-path-pattern: /static/**
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+#  http:
+#    multipart:
+#      locations: ${resourcePath}
+#  web:
+#    resources:
+#      static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:${spring.http.multipart.locations}
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/
+
+  servlet:
+    multipart:
+      enabled: true #默认支持文件上传
+      max-file-size: 15360MB # 最大支持文件大小
+      max-request-size: 15360MB # 最大支持请求大小
+  main:
+    allow-circular-references: true
+
+server:
+  port: 9000
+  tomcat:
+    uri-encoding: utf-8
+
+
