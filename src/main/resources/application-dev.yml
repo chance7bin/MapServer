@@ -10,5 +10,5 @@ mbtilesPath: Z:/mbtiles
 
 terrariumPath: Y:/mbtiles
 
-deployIpAndPort: localhost:9000
+deployIpAndPort: 172.21.212.240:9000
 

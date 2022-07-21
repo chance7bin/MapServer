@@ -1,7 +1,9 @@
 package com.example.mapserver.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.mapserver.entity.dto.TiandituTilesDTO;
 import com.example.mapserver.entity.dto.TilesDTO;
+import com.example.mapserver.entity.enums.LayerEnum;
 import com.example.mapserver.service.ITilesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +28,30 @@ public class TilesController {
     @Autowired
     ITilesService tilesService;
 
+    @ApiOperation(value = "得到天地图瓦片" )
+    @GetMapping("/tianditu/{layer}/{z}/{x}/{y}")
+    public void getTiandituTiles(
+        @ApiParam(name = "layer", value = "加载的图层") @PathVariable LayerEnum layer,
+        @ApiParam(name = "z", value = "zoom_level") @PathVariable int z,
+        @ApiParam(name = "x", value = "tile_column") @PathVariable int x,
+        @ApiParam(name = "y", value = "tile_row") @PathVariable int y ,
+        HttpServletResponse response){
+
+
+        // int zoom_level = z;
+        // int tile_column = x;
+        // int tile_row = y;
+
+        TiandituTilesDTO tilesDTO = new TiandituTilesDTO();
+        tilesDTO.setTile_column(x);
+        tilesDTO.setTile_row(y);
+        // tilesDTO.setTile_row((int)(Math.pow(2,z)-1-y));
+        tilesDTO.setZoom_level(z);
+        tilesDTO.setTile_Layer(layer);
+
+        tilesService.getTiandituTiles(tilesDTO, response);
+
+    }
 
 
 

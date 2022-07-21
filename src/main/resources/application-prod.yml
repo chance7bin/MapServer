@@ -1,8 +1,9 @@
 
-#resourcePath: D:/mapArchiveFiles
 resourcePath: D:/MapServer/resources/
 
 mbtilesPath: D:/MapServer/mbtiles/
+
+terrariumPath: D:/MapServer/terrarium/
 
 deployIpAndPort: 172.21.212.168:9000
 

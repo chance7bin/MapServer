@@ -39,7 +39,8 @@ public class SqliteConfig {
     Connection mapboxStatement() throws SQLException {
         // return getConnection("jdbc:sqlite:" + resourcePath + "/mapbox/2017-07-03_planet_z0_z14.mbtiles");
         // return getConnection("jdbc:sqlite:Z:/2017-07-03_planet_z0_z14.mbtiles");
-        return getConnection("jdbc:sqlite:" + mbtilesPath + "/2017-07-03_planet_z0_z14.mbtiles");
+        // return getConnection("jdbc:sqlite:" + mbtilesPath + "/2017-07-03_planet_z0_z14.mbtiles");
+        return getConnection("jdbc:sqlite:" + "Y:" + "/2020-10-planet-14.mbtiles");
     }
 
 
@@ -62,8 +63,8 @@ public class SqliteConfig {
             // e.g. Y:\mbtiles\11\terrarium_11_512-1023.mbtiles
 
             //不执行下面的代码
-            if (mbPath != null)
-                continue;
+            // if (mbPath != null)
+            //     continue;
 
             String fileType = FileUtils.getFileType(mbPath);
             if (fileType.equals("mbtiles")){
@@ -75,9 +76,10 @@ public class SqliteConfig {
                     continue;
 
                 int level = Integer.parseInt(split[1]);
+
                 //做测试的，12以上先不连
-                if (level > 11)
-                    continue;
+                // if (level > 11)
+                //     continue;
 
                 String range = split[2];
                 String[] split1 = range.split("-");
@@ -176,12 +178,35 @@ public class SqliteConfig {
         //推断表是否存在
         ResultSet rsTables = conn.getMetaData().getTables(null, null, "tiles", null);
         if(!rsTables.next()){
-            log.warn("Table does not exist!");
+            log.warn("{} does not exist!", conurl);
+        } else {
+            log.info("{} successfully connected!", conurl);
         }
-        log.info("{} successfully connected!", conurl);
 
         return conn;
 
         // return conn.createStatement();
     }
+
+
+    @Bean(name = "imgConnection")
+    Connection imgStatement() throws SQLException {
+        return getConnection("jdbc:sqlite:" + mbtilesPath + "/tianditu/img_c.mbtiles");
+    }
+
+    @Bean(name = "cvaConnection")
+    Connection cvaStatement() throws SQLException {
+        return getConnection("jdbc:sqlite:" + mbtilesPath + "/tianditu/cva_c.mbtiles");
+    }
+
+    @Bean(name = "ciaConnection")
+    Connection ciaStatement() throws SQLException {
+        return getConnection("jdbc:sqlite:" + mbtilesPath + "/tianditu/vec-cia/cia_c.mbtiles");
+    }
+
+    @Bean(name = "vecConnection")
+    Connection vecStatement() throws SQLException {
+        return getConnection("jdbc:sqlite:" + mbtilesPath + "/tianditu/vec-cia/vec_c.mbtiles");
+    }
+
 }

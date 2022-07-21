@@ -1,6 +1,7 @@
 package com.example.mapserver.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.mapserver.entity.dto.TiandituTilesDTO;
 import com.example.mapserver.entity.dto.TilesDTO;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,4 +22,6 @@ public interface ITilesService {
     JSONObject getMapboxLibertyJson();
 
     void testTerrariumTiles(TilesDTO tilesDTO, String mbtilesPath, HttpServletResponse response);
+
+    void getTiandituTiles(TiandituTilesDTO tilesDTO, HttpServletResponse response);
 }

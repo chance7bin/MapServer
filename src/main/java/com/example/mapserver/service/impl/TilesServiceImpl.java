@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.mapserver.config.SqliteConfig;
 import com.example.mapserver.entity.bo.MbtilesProps;
+import com.example.mapserver.entity.dto.TiandituTilesDTO;
 import com.example.mapserver.entity.dto.TilesDTO;
 import com.example.mapserver.service.ITilesService;
 import com.example.mapserver.utils.FileUtils;
@@ -62,6 +63,19 @@ public class TilesServiceImpl implements ITilesService {
 
     @Value("${resourcePath}")
     String resourcePath;
+
+
+    @Resource(name="imgConnection")
+    Connection imgConnection;
+
+    @Resource(name="cvaConnection")
+    Connection cvaConnection;
+
+    @Resource(name="ciaConnection")
+    Connection ciaConnection;
+
+    @Resource(name="vecConnection")
+    Connection vecConnection;
 
 
     @Override
@@ -255,6 +269,37 @@ public class TilesServiceImpl implements ITilesService {
             log.info("test error");
         }
 
+
+    }
+
+    @Override
+    public void getTiandituTiles(TiandituTilesDTO tilesDTO, HttpServletResponse response) {
+
+        Connection connection;
+
+        switch (tilesDTO.getTile_Layer()){
+            case img_c:{
+                connection = imgConnection;
+                break;
+            }
+            case cva_c:{
+                connection = cvaConnection;
+                break;
+            }
+            case cia_c:{
+                connection = ciaConnection;
+                break;
+            }
+            case vec_c:{
+                connection = vecConnection;
+                break;
+            }
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + tilesDTO.getTile_Layer());
+        }
+
+        queryMbtiles(tilesDTO, connection, response);
 
     }
 
