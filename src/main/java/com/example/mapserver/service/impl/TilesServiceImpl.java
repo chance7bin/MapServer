@@ -9,7 +9,10 @@ import com.example.mapserver.entity.dto.TilesDTO;
 import com.example.mapserver.service.ITilesService;
 import com.example.mapserver.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -37,7 +40,10 @@ public class TilesServiceImpl implements ITilesService {
     @Resource(name="mapboxConnection")
     Connection mapboxConnection;
 
-    @Resource(name="terrariumConnection_0_10")
+
+    // @Resource(name="terrariumConnection_0_10")
+    @Autowired(required = false)
+    @Qualifier(value = "terrariumConnection_0_10")
     Connection terrariumConnection_0_10;
 
     @Resource(name="terrariumConnection")

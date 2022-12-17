@@ -4,6 +4,7 @@ import com.example.mapserver.entity.bo.MbtilesProps;
 import com.example.mapserver.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,8 +40,8 @@ public class SqliteConfig {
     Connection mapboxStatement() throws SQLException {
         // return getConnection("jdbc:sqlite:" + resourcePath + "/mapbox/2017-07-03_planet_z0_z14.mbtiles");
         // return getConnection("jdbc:sqlite:Z:/2017-07-03_planet_z0_z14.mbtiles");
-        // return getConnection("jdbc:sqlite:" + mbtilesPath + "/2017-07-03_planet_z0_z14.mbtiles");
-        return getConnection("jdbc:sqlite:" + "Y:" + "/2020-10-planet-14.mbtiles");
+        return getConnection("jdbc:sqlite:" + mbtilesPath + "/2017-07-03_planet_z0_z14.mbtiles");
+        // return getConnection("jdbc:sqlite:" + "Y:" + "/2020-10-planet-14.mbtiles");
     }
 
 
@@ -72,8 +73,9 @@ public class SqliteConfig {
                 String[] split = mbname.split("_");
 
                 // 因为0-10级都放在一个数据库中，所以单独判断
-                if (split[1].equals("0-10"))
+                if (split[1].equals("0-10")) {
                     continue;
+                }
 
                 int level = Integer.parseInt(split[1]);
 
@@ -107,11 +109,12 @@ public class SqliteConfig {
     }
 
 
-
+    @ConditionalOnProperty(value = "loadTerrarium")
     @Bean(name = "terrariumConnection_0_10")
     Connection terrariumConnection_0_10() throws SQLException {
         // return getConnection("jdbc:sqlite:" + mbtilesPath + "/terrarium_0_10.mbtiles");
         return getConnection("jdbc:sqlite:" + terrariumPath + "/0-10/terrarium_0-10.mbtiles");
+        // return getConnection("jdbc:sqlite:E:/mapServer/download_data/mbtiles/terrarium_0-8.mbtiles");
     }
 
 

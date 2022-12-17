@@ -33,14 +33,16 @@ class MapServerApplicationTests {
     @Test
     void downloadTxtFunc() throws IOException {
 
-        int layer = 14; //层级
-        int pNum = 40; //人数
-        // String txtOutputDir = "E:/mapServer/cmdTxt_14/" + layer;  //txt输出路径
-        String txtOutputDir = "E:/mapServer/cmdTxt_server_14/" + layer;  //txt输出路径
-        // String pngOutputDir = "E:/mapServer/download_data/";  //下载瓦片输出路径
-        String pngOutputDir = "D:/data/terrarium_14/";  //下载瓦片输出路径
+        for (int i = 0; i <= 10; i++) {
+            int layer = i; //层级
+            int pNum = 1; //人数
+            // String txtOutputDir = "E:/mapServer/cmdTxt_14/" + layer;  //txt输出路径
+            String txtOutputDir = "E:/mapServer/cmdTxt";  //txt输出路径
+            // String pngOutputDir = "E:/mapServer/download_data/";  //下载瓦片输出路径
+            String pngOutputDir = "E:/mapServer/download_data/terrarium/";  //下载瓦片输出路径
 
-        getDownloadTxt(layer, pNum, txtOutputDir, pngOutputDir);
+            getDownloadTxt(layer, pNum, txtOutputDir, pngOutputDir);
+        }
 
     }
 
