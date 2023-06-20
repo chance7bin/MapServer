@@ -36,8 +36,8 @@ public class SqliteConfig {
     Map<Integer, List<MbtilesProps>> mbtilesPropsMap = new HashMap<>();
 
 
-    @Bean(name = "mapboxConnection")
-    Connection mapboxStatement() throws SQLException {
+    @Bean(name = "mbtilesConnection")
+    Connection mbtilesStatement() throws SQLException {
         // return getConnection("jdbc:sqlite:" + resourcePath + "/mapbox/2017-07-03_planet_z0_z14.mbtiles");
         // return getConnection("jdbc:sqlite:Z:/2017-07-03_planet_z0_z14.mbtiles");
         return getConnection("jdbc:sqlite:" + mbtilesPath + "/2017-07-03_planet_z0_z14.mbtiles");
@@ -64,11 +64,12 @@ public class SqliteConfig {
             // e.g. Y:\mbtiles\11\terrarium_11_512-1023.mbtiles
 
             //不执行下面的代码
-            // if (mbPath != null)
-            //     continue;
+            if (mbPath != null) {
+                continue;
+            }
 
             String fileType = FileUtils.getFileType(mbPath);
-            if (fileType.equals("mbtiles")){
+            if (fileType.equals("mbtiles")) {
                 String mbname = FileUtils.getFilenameNoSuffix(mbPath);
                 String[] split = mbname.split("_");
 
@@ -112,8 +113,8 @@ public class SqliteConfig {
     @ConditionalOnProperty(value = "loadTerrarium")
     @Bean(name = "terrariumConnection_0_10")
     Connection terrariumConnection_0_10() throws SQLException {
-        // return getConnection("jdbc:sqlite:" + mbtilesPath + "/terrarium_0_10.mbtiles");
-        return getConnection("jdbc:sqlite:" + terrariumPath + "/0-10/terrarium_0-10.mbtiles");
+        // return getConnection("jdbc:sqlite:" + mbtilesPath + "/dem/terrarium_0_10.mbtiles");
+        return getConnection("jdbc:sqlite:" + terrariumPath + "/dem/terrarium_0_10.mbtiles");
         // return getConnection("jdbc:sqlite:E:/mapServer/download_data/mbtiles/terrarium_0-8.mbtiles");
     }
 

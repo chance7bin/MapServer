@@ -27,7 +27,6 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
-    //南方测绘demo--API
     @Bean
     public Docket myDocket(){
         return new Docket(DocumentationType.SWAGGER_2)

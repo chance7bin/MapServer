@@ -33,15 +33,22 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!--springboot集成mongodb使用mongoTemplate和MongoRepository-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!--springboot集成mongodb使用mongoTemplate和MongoRepository-->
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.data</groupId>-->
+        <!--    <artifactId>spring-data-mongodb</artifactId>-->
+        <!--    <version>3.2.2</version>-->
+        <!--</dependency>-->
 
         <!--用来支持"没有像 JPA 那样的持久化 API"的非关系型数据库或是框架的持久化-->
         <dependency>
@@ -64,12 +71,19 @@
             <version>4.12</version>
         </dependency>
 
+
+        <!--geoserver依赖-->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>3.2.2</version>
+            <groupId>nl.pdok</groupId>
+            <artifactId>geoserver-manager</artifactId>
+            <version>1.7.0-pdok2</version>
         </dependency>
 
+        <!--常用工具类 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
         <!--Swagger用于接口文档的编写-->
         <dependency>

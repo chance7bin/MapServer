@@ -8,17 +8,23 @@ import com.example.mapserver.entity.dto.TiandituTilesDTO;
 import com.example.mapserver.entity.dto.TilesDTO;
 import com.example.mapserver.service.ITilesService;
 import com.example.mapserver.utils.FileUtils;
+import it.geosolutions.geoserver.rest.GeoServerRESTManager;
+import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
+import it.geosolutions.geoserver.rest.GeoServerRESTReader;
+import it.geosolutions.geoserver.rest.decoder.RESTDataStore;
+import it.geosolutions.geoserver.rest.decoder.RESTLayer;
+import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -36,9 +42,8 @@ import java.util.Map;
 @Slf4j
 public class TilesServiceImpl implements ITilesService {
 
-
-    @Resource(name="mapboxConnection")
-    Connection mapboxConnection;
+    @Resource(name = "mbtilesConnection")
+    Connection mbtilesConnection;
 
 
     // @Resource(name="terrariumConnection_0_10")
@@ -46,7 +51,7 @@ public class TilesServiceImpl implements ITilesService {
     @Qualifier(value = "terrariumConnection_0_10")
     Connection terrariumConnection_0_10;
 
-    @Resource(name="terrariumConnection")
+    @Resource(name = "terrariumConnection")
     Map<Integer, List<MbtilesProps>> terrariumConnection;
 
     // @Resource(name="terrariumConnection_11")
@@ -87,7 +92,7 @@ public class TilesServiceImpl implements ITilesService {
     @Override
     public void getMapboxTiles(TilesDTO tilesDTO, HttpServletResponse response) {
 
-        queryMbtilesWithUncompress(tilesDTO, mapboxConnection, response);
+        queryMbtilesWithUncompress(tilesDTO, mbtilesConnection, response);
 
     }
 
@@ -210,7 +215,7 @@ public class TilesServiceImpl implements ITilesService {
         JSONObject result = new JSONObject();
         
         try {
-            Statement statement = mapboxConnection.createStatement();
+            Statement statement = mbtilesConnection.createStatement();
             // 得到结果集
             String sql = "SELECT * FROM metadata";
             ResultSet rs = statement.executeQuery(sql);

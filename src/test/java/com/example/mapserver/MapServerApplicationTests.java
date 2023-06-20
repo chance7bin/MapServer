@@ -1,13 +1,25 @@
 package com.example.mapserver;
 
 import com.example.mapserver.utils.FileUtils;
+import it.geosolutions.geoserver.rest.GeoServerRESTManager;
+import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
+import it.geosolutions.geoserver.rest.GeoServerRESTReader;
+import it.geosolutions.geoserver.rest.decoder.RESTDataStore;
+import it.geosolutions.geoserver.rest.decoder.RESTLayer;
+import it.geosolutions.geoserver.rest.encoder.GSLayerEncoder;
+import it.geosolutions.geoserver.rest.encoder.datastore.GSShapefileDatastoreEncoder;
+import it.geosolutions.geoserver.rest.encoder.feature.GSFeatureTypeEncoder;
+import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,11 +123,82 @@ class MapServerApplicationTests {
         System.out.println("--------------------------------");
         List<String> files1 = new ArrayList<>();
         FileUtils.getFilesContainChild(terrariumPath, files1);
-        for(String file:files1)
-        {
+        for (String file : files1) {
             System.out.println(file);
         }
 
     }
+
+    @Test
+    void publish() {
+        publishShp();
+    }
+
+    /**
+     * 将shapefile文件发布为geoserver服务
+     *
+     * @return
+     */
+    public void publishShp() {
+        String url = "http://172.21.212.240:8008/geoserver";    //geoserver的地址
+        String un = "admin";         //geoserver的账号
+        String pw = "geoserver";     //geoserver的密码
+
+        String workspace = "shapefile";     //工作区名称
+        String storename = "test";     //数据源名称
+        String layername = "bus_point";     //发布的图层名称，此名称必须和压缩包的名称一致
+
+        //shp文件压缩包，必须是zip压缩包，且shp文件(.shp、.dbf、.shx等)外层不能有文件夹，且压缩包名称需要与shp图层名称一致
+        String zipFilePath = "E:\\GIS_Data\\chengdu\\bus_point.zip";
+
+        //  1、获取geoserver连接对象
+        GeoServerRESTManager manager = null;
+
+        try {
+            manager = new GeoServerRESTManager(new URL(url), un, pw);
+            System.out.println("连接geoserver服务器成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("geoserver服务器连接失败");
+            return;
+        }
+
+        GeoServerRESTReader reader = manager.getReader();
+        GeoServerRESTPublisher publisher = manager.getPublisher();
+        GeoServerRESTStoreManager storeManager = manager.getStoreManager();
+
+        //  2、判断是否有工作区，没有则创建
+        boolean b2 = reader.existsWorkspace(workspace);
+        if (!b2) {
+            boolean b = publisher.createWorkspace(workspace);
+            if (!b) {
+                System.out.println("工作区创建失败");
+                return;
+            }
+        }
+
+        //  3、判断是否有数据源，没有则创建
+        //  4、发布图层，如果存在就不发布
+        //  创建数据源 和 发布图层服务可以一步进行
+        RESTDataStore datastore = reader.getDatastore(workspace, storename);
+        RESTLayer layer = reader.getLayer(workspace, layername);
+        if (layer == null && datastore == null) {
+            File file = new File(zipFilePath);
+            // 进行发布；参数依次为：工作区名称、数据源名称、图层名称、shp文件压缩文件对象、坐标系
+            boolean b = false;
+            try {
+                b = publisher.publishShp(workspace, storename, layername, file, GeoServerRESTPublisher.DEFAULT_CRS);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (!b) {
+                System.out.println("shp图层发布失败");
+            } else {
+                System.out.println("shp图层发布成功");
+            }
+        }
+
+    }
+
 
 }

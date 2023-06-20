@@ -12,5 +12,4 @@ public class TilesDTO {
     int zoom_level;
     int tile_column;
     int tile_row;
-
 }

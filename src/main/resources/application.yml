@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: dev
   mvc:
     static-path-pattern: /static/**
     pathmatch:
@@ -29,6 +29,6 @@ server:
     uri-encoding: utf-8
 
 #是否加载地形数据
-loadTerrarium: true
+loadTerrarium: false
 
 

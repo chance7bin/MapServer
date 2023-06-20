@@ -8,7 +8,19 @@ resourcePath: Z:/resources
 
 mbtilesPath: Z:/mbtiles
 
-terrariumPath: Y:/mbtiles
+terrariumPath: Z:/
 
 deployIpAndPort: 172.21.212.240:9000
 
+# 地图服务类型 geoserver/postgres
+map:
+  server:
+    type: geoserver
+
+repository: E:/mapServer/repository # shp文件存放路径
+
+geoserver:
+  url: http://172.21.212.240:8008/geoserver # geoserver的地址
+  username: admin # geoserver的账号
+  password: geoserver # geoserver的密码
+  workspace: mapserver # geoserver的工作空间

@@ -1,9 +1,11 @@
 package com.example.mapserver.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.mapserver.entity.dto.ApiResponse;
 import com.example.mapserver.entity.dto.TiandituTilesDTO;
 import com.example.mapserver.entity.dto.TilesDTO;
 import com.example.mapserver.entity.enums.LayerEnum;
+import com.example.mapserver.service.IGeoServerService;
 import com.example.mapserver.service.ITilesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,20 +17,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 使用mbtiles生成的瓦片服务
+ *
  * @Description
  * @Author bin
  * @Date 2022/03/25
  */
-@Api(tags = "地图瓦片接口")
+@Api(tags = "地图瓦片接口_mbtiles")
 @RestController
-@RequestMapping(value = "/tiles")
+@RequestMapping(value = "/mbtiles")
 @Slf4j
-public class TilesController {
+public class MBTilesController {
 
     @Autowired
     ITilesService tilesService;
 
-    @ApiOperation(value = "得到天地图瓦片" )
+    @ApiOperation(value = "得到天地图瓦片")
     @GetMapping("/tianditu/{layer}/{z}/{x}/{y}")
     public void getTiandituTiles(
         @ApiParam(name = "layer", value = "加载的图层") @PathVariable LayerEnum layer,
@@ -74,49 +78,9 @@ public class TilesController {
 
     }
 
-    @ApiOperation(value = "得到terrarium瓦片" )
-    @GetMapping("/terrarium/{z}/{x}/{y}")
-    public void getTerrariumTiles(
-        @ApiParam(name = "z", value = "zoom_level") @PathVariable int z,
-        @ApiParam(name = "x", value = "tile_column") @PathVariable int x,
-        @ApiParam(name = "y", value = "tile_row") @PathVariable int y ,
-        HttpServletResponse response){
-
-
-        TilesDTO tilesDTO = new TilesDTO();
-        tilesDTO.setTile_column(x);
-        // tilesDTO.setTile_row(y);
-        tilesDTO.setTile_row((int)(Math.pow(2,z)-1-y));
-        tilesDTO.setZoom_level(z);
-
-        tilesService.getTerrariumTiles(tilesDTO, response);
-
-    }
-
-    @ApiOperation(value = "测试瓦片" )
-    @PostMapping("/test/terrarium/{z}/{x}/{y}")
-    public void testTerrariumTiles(
-        @ApiParam(name = "z", value = "zoom_level") @PathVariable int z,
-        @ApiParam(name = "x", value = "tile_column") @PathVariable int x,
-        @ApiParam(name = "y", value = "tile_row") @PathVariable int y ,
-        @RequestBody String mbtilesPath,
-        // @ApiParam(name = "path", value = "path") @PathVariable String path,
-        HttpServletResponse response){
-
-
-        TilesDTO tilesDTO = new TilesDTO();
-        tilesDTO.setTile_column(x);
-        // tilesDTO.setTile_row(y);
-        tilesDTO.setTile_row((int)(Math.pow(2,z)-1-y));
-        tilesDTO.setZoom_level(z);
-
-        tilesService.testTerrariumTiles(tilesDTO, mbtilesPath, response);
-
-    }
-
 
     // "https://api.maptiler.com/tiles/v3/tiles.json?key=XAapkmkXQpx839NCfnxD"
-    @ApiOperation(value = "得到mapbox元数据json" )
+    @ApiOperation(value = "得到mapbox的tiles.json")
     @GetMapping("/mapbox/metadata/tiles.json")
     public JSONObject getMapboxTilesMetadataJson(){
 
@@ -125,8 +89,7 @@ public class TilesController {
     }
 
 
-
-    @ApiOperation(value = "得到mapbox元数据json" )
+    @ApiOperation(value = "得到mapbox的osm_liberty.json")
     @GetMapping("/mapbox/liberty.json")
     public JSONObject getMapboxLibertyJson(){
 
