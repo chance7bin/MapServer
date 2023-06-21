@@ -1,5 +1,6 @@
 package com.example.mapserver.controller;
 
+import com.example.mapserver.entity.dto.ApiResponse;
 import com.example.mapserver.entity.dto.TilesDTO;
 import com.example.mapserver.service.ITilesService;
 import io.swagger.annotations.Api;
@@ -23,6 +24,11 @@ public class TestController {
 
     @Autowired
     ITilesService tilesService;
+
+    @GetMapping("/hello")
+    public ApiResponse hello() {
+        return ApiResponse.success();
+    }
 
     // @ApiOperation(value = "得到terrarium瓦片" )
     // @GetMapping("/terrarium/{z}/{x}/{y}")

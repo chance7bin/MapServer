@@ -39,16 +39,16 @@
         </dependency>
 
         <!--springboot集成mongodb使用mongoTemplate和MongoRepository-->
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.boot</groupId>-->
-        <!--    <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
 
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.data</groupId>-->
-        <!--    <artifactId>spring-data-mongodb</artifactId>-->
-        <!--    <version>3.2.2</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>3.2.2</version>
+        </dependency>
 
         <!--用来支持"没有像 JPA 那样的持久化 API"的非关系型数据库或是框架的持久化-->
         <dependency>
@@ -115,6 +115,54 @@
             <version>3.34.0</version>
         </dependency>
 
+        <!-- postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- jdbc -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- Hibernate Spatial for storing and retrieving geometries -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <!--<version>${hibernate.version}</version>-->
+        </dependency>
+        <!-- json 实体类映射 -->
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.4.3</version>
+        </dependency>
+
+
+        <!--File 转 MultipartFile-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- ant zip解压-->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>5.6.5</version>
+        </dependency>
 
     </dependencies>
 

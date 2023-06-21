@@ -18,9 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description sqlite配置
- * @Author bin
- * @Date 2021/12/09
+ * @author 7bin
  */
 @Slf4j
 @Configuration
@@ -155,14 +153,14 @@ public class SqliteConfig {
     // }
 
 
-
     /**
      * 连接数据库 返回连接数据库的Connection 不能返回执行SQL语句的statement，
      * 因为每个Statement对象只能同时打开一个ResultSet对象，
      * 高并发情况下会出现 <code>rs.isOpen() on exec</code> 的错误
+     *
      * @param conurl 数据库地址
      * @return java.sql.Connection
-     * @Author bin
+     * @author 7bin
      **/
     public static Connection getConnection(String conurl) throws SQLException {
         try {

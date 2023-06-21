@@ -22,7 +22,6 @@ import java.util.Optional;
 
 /**
  * @author 7bin
- * @date 2023/06/17
  */
 @Slf4j
 @Service
@@ -32,8 +31,8 @@ public class GeoServerServiceImpl implements IGeoServerService {
     @Qualifier("geoServerManager")
     Optional<GeoServerRESTManager> manager;
 
-    @Value("${repository}")
-    private String repository;
+    @Value("${resourcesPath}")
+    private String resourcesPath;
 
     @Value("${geoserver.url}")
     private String url;
@@ -75,7 +74,7 @@ public class GeoServerServiceImpl implements IGeoServerService {
         }
 
         //shp文件压缩包，必须是zip压缩包，且shp文件(.shp、.dbf、.shx等)外层不能有文件夹，且压缩包名称需要与shp图层名称一致
-        String zipFilePath = repository + "/" + sfname;
+        String zipFilePath = resourcesPath + "/zip/" + sfname;
 
         String storename = sfname.substring(0, sfname.lastIndexOf("."));
         String layername = storename;

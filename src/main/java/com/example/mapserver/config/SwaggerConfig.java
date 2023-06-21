@@ -35,7 +35,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
             .select()
             //扫描的API包路径
             // 方法需要有ApiOperation注解才能生存接口文档
-            .apis(RequestHandlerSelectors.basePackage("com/example/mapserver/controller"))
+            .apis(RequestHandlerSelectors.basePackage("com.example.mapserver.controller"))
             // 路径使用any风格
             .paths(PathSelectors.any())
             .build()
@@ -85,8 +85,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
     //接口文档详细信息
     public ApiInfo myApiInfo(){
         return new ApiInfoBuilder()
-            .title("地图档案--API文档")
-            .description("地图档案项目--api接口")
+            .title("地图服务器--API文档")
+            .description("地图服务器项目--api接口")
             // .termsOfServiceUrl("http://localhost:8088/api/management/project/getProjectList")
             .version("1.0")
             .build();

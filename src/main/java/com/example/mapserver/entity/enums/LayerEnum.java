@@ -3,9 +3,7 @@ package com.example.mapserver.entity.enums;
 import lombok.AllArgsConstructor;
 
 /**
- * @Description
- * @Author bin
- * @Date 2021/12/09
+ * @author 7bin
  */
 @AllArgsConstructor
 public enum LayerEnum {

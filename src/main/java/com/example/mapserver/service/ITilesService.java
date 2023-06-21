@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 瓦片地图 服务层
  *
- * @Author bin
- * @Date 2022/03/25
+ * @author 7bin
  */
 public interface ITilesService {
 

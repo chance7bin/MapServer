@@ -3,9 +3,7 @@ package com.example.mapserver.entity.dto;
 import lombok.Data;
 
 /**
- * @Description
- * @Author bin
- * @Date 2021/12/09
+ * @author 7bin
  */
 @Data
 public class TilesDTO {

@@ -1,6 +1,9 @@
 package com.example.mapserver;
 
+import com.example.mapserver.mapper.postgres.ShpProcessRepository;
 import com.example.mapserver.utils.FileUtils;
+import com.example.mapserver.utils.ImgUtils;
+import com.sun.imageio.plugins.common.ImageUtil;
 import it.geosolutions.geoserver.rest.GeoServerRESTManager;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
@@ -11,6 +14,7 @@ import it.geosolutions.geoserver.rest.encoder.datastore.GSShapefileDatastoreEnco
 import it.geosolutions.geoserver.rest.encoder.feature.GSFeatureTypeEncoder;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -198,6 +202,22 @@ class MapServerApplicationTests {
             }
         }
 
+    }
+
+    @Autowired
+    private ShpProcessRepository shpProcessRepository;
+
+    @Test
+    public void hello() {
+        System.out.println("success");
+    }
+
+
+    @Test
+    public void testShp2Pg() {
+        String shpPath = "E:\\mapServer\\repository\\shp\\bus_line";
+        String tableName = "bus_line_test_3";
+        shpProcessRepository.shp2pgsql(shpPath, tableName, "4326", "UTF-8");
     }
 
 

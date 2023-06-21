@@ -4,9 +4,7 @@ import com.example.mapserver.entity.enums.LayerEnum;
 import lombok.Data;
 
 /**
- * @Description
- * @Author bin
- * @Date 2022/05/02
+ * @author 7bin
  */
 @Data
 public class TiandituTilesDTO extends TilesDTO{

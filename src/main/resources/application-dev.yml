@@ -1,10 +1,15 @@
-#spring:
-#  data:
-#    mongodb:
-#      uri: mongodb://172.21.213.33/MapArchiveDB
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/VisualizationEngine
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/mySDE?stringtype=unspecified
 
 
-resourcePath: Z:/resources
+resourcePath: Z:/resources #瓦片资源存放路径
 
 mbtilesPath: Z:/mbtiles
 
@@ -17,10 +22,21 @@ map:
   server:
     type: geoserver
 
-repository: E:/mapServer/repository # shp文件存放路径
+resourcesPath: E:/mapServer/repository # 项目资源存放路径
 
 geoserver:
   url: http://172.21.212.240:8008/geoserver # geoserver的地址
   username: admin # geoserver的账号
   password: geoserver # geoserver的密码
   workspace: mapserver # geoserver的工作空间
+
+
+#pg相关配置
+backendIP: 172.21.212.240
+pgPassword: postgres
+#pgsqlCmdPath: E:\\mapServer\\repository\\tools
+pgsqlCmdPath: C:\\Program Files\\PostgreSQL\\14\\bin
+shp2pgSqlWin: cmd /c {0}\\shp2pgsql.exe -I -s {1} -W {2} {3}  {4} | {0}\\psql.exe -h localhost -U postgres -d mySDE -p 5432
+shp2pgSqlLinux: shp2pgsql -I -s {1} -W "LATIN1" {2} {3} | psql -h localhost -U postgres -d mySDE -p 5432
+activatePythonEnv: activate saga_env3.8
+invokePythonScript: cmd /c {0} && python {1} {2}
