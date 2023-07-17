@@ -50,7 +50,7 @@ public class MvtUtils {
     }
 
     public static String envelopeToSQL(HashMap<String, Double> env, String tableName) {
-// lines_pg   gis_osm_transport_free_1
+        // lines_pg   gis_osm_transport_free_1
         HashMap<String, String> table = new HashMap<String, String>();
         table.put("table", tableName);
         table.put("srid", "4326");

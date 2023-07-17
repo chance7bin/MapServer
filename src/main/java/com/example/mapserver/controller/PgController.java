@@ -32,7 +32,7 @@ public class PgController {
                        @PathVariable("zoom") int zoom,
                        @PathVariable("x") int x,
                        @PathVariable("y") int y,
-                       HttpServletResponse response) throws IOException {
+                       HttpServletResponse response) {
 
         pgService.getMvt(zoom, x, y, tableName, response);
     }

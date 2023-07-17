@@ -29,7 +29,7 @@ public class GeoServerController {
     @PostMapping("/wms/publish/{sfname}")
     public ApiResponse publishTilesByShp(@PathVariable(value = "sfname") String sfname) {
 
-        return ApiResponse.success(geoServerService.publishTilesByShp(sfname));
+        return ApiResponse.success((Object) geoServerService.publishTilesByShp(sfname));
 
     }
 
@@ -38,7 +38,7 @@ public class GeoServerController {
     public ApiResponse getTilesByShp(
         @PathVariable(value = "layerName") String layerName, @PathVariable(value = "workspace") String workspace) {
 
-        return ApiResponse.success(geoServerService.getWMSByLayerName(workspace, layerName));
+        return ApiResponse.success((Object) geoServerService.getWMSByLayerName(workspace, layerName));
 
     }
 
